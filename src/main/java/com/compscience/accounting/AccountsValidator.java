@@ -5,7 +5,6 @@ import java.io.FileInputStream;
 import java.text.DecimalFormat;
 import java.util.Iterator;
 
-import org.apache.poi.openxml4j.opc.OPCPackage;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.xssf.usermodel.XSSFCell;
@@ -117,8 +116,11 @@ public class AccountsValidator {
 			double profit = investments + invoicesBalance + beginBal;
 			double calculatedEndingBalance = roundTwoDecimals(profit - totalExpenses);
 			double difference = endBal - calculatedEndingBalance;
-			if (difference == 0) {
-				logger.info(calculatedEndingBalance + " Hurray. You are the accounting champion! " + endBal);
+			if (difference >= 0.01) {
+				logger.info("************* Hurray. You are the accounting champion! *************");
+				logger.info("Calculated Ending Balance: "+calculatedEndingBalance);
+				logger.info("End Balance: "+endBal);				
+				logger.info("********************************************************************");
 			} else {
 				logger.info("Sorry. Something is wrong with your accounts :(");
 				logger.info("Profit minus expenses: " + calculatedEndingBalance);
