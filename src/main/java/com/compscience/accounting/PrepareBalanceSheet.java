@@ -26,7 +26,7 @@ public class PrepareBalanceSheet {
 	static XSSFWorkbook wb;
 	static HSSFWorkbook reportWb;
 	static Map expensesCategoryMap = new HashMap();
-	static Map projectsMap = new HashMap();
+	static Map<String, String> projectsMap = new HashMap<String, String>();
 
 	public static void main(String args[]) {
 		try {
@@ -73,22 +73,22 @@ public class PrepareBalanceSheet {
 			if (category == null) {
 				continue;
 			}
-			Map detailsMap = (Map) expensesMap.get(category);
+			Map<String, Double> detailsMap = (Map) expensesMap.get(category);
 			if (detailsMap == null) {
 				detailsMap = new HashMap();
 			}
 
 			Double expenseTotal = (Double) detailsMap.get(expenseId);
 			if (expenseTotal == null) {
-				expenseTotal = new Double(0);
+				expenseTotal = Double.valueOf(0);
 			}
-			expenseTotal = new Double(expenseTotal + expense);
+			expenseTotal = Double.valueOf(expenseTotal + expense);
 			detailsMap.put(expenseId, expenseTotal);
 			expensesMap.put(category, detailsMap);
 
 		}
 
-		ArrayList resultList = new ArrayList();
+		ArrayList<String> resultList = new ArrayList<String>();
 
 		Iterator expenseEntries = expensesMap.entrySet().iterator();
 
@@ -176,7 +176,7 @@ public class PrepareBalanceSheet {
 		double totalIncoming = 0;
 		double totalOutgoing = 0;
 
-		resultList = new ArrayList();
+		resultList = new ArrayList<String>();
 
 		for (Iterator itrtr = invoicesMap.keySet().iterator(); itrtr.hasNext();) {
 
@@ -219,9 +219,6 @@ public class PrepareBalanceSheet {
 			}
 
 			Iterator cellItr = row.cellIterator();
-			String projectId = null;
-			double investment = 0;
-			String investDescription = null;
 			while (cellItr.hasNext()) {
 				XSSFCell cell = (XSSFCell) cellItr.next();
 				if (cell.getColumnIndex() == 1 && row.getRowNum() == 1) {
@@ -238,7 +235,7 @@ public class PrepareBalanceSheet {
 		sheet = wb.getSheet("INVESTMENT_PROFIT");
 		itr = sheet.rowIterator();
 
-		resultList = new ArrayList();
+		resultList = new ArrayList<String>();
 		resultList.add("Bank Starting Balance: " + roundTwoDecimals(startingBankBalance));
 		resultList.add("Invoices Revenue:" + roundTwoDecimals(invoicesProfit));
 		resultList.add("Expenses:" + -roundTwoDecimals(grandExpensesTotal));
@@ -255,7 +252,6 @@ public class PrepareBalanceSheet {
 			}
 
 			Iterator cellItr = row.cellIterator();
-			String projectId = null;
 			double investment = 0;
 			String investDescription = null;
 			while (cellItr.hasNext()) {
@@ -300,8 +296,6 @@ public class PrepareBalanceSheet {
 			}
 			Map subCatMap = (Map) entry.getValue();
 			Iterator subCatEntries = subCatMap.entrySet().iterator();
-			// logger.info("Category:----------------------->"+catId +" -
-			// "+expensesCategoryMap.get(catId+"-Descrption"));
 			while (subCatEntries.hasNext()) {
 				Map.Entry subCategory = (Map.Entry) subCatEntries.next();
 				String subCatId = (String) subCategory.getKey();
@@ -312,9 +306,6 @@ public class PrepareBalanceSheet {
 					else
 						return catId;
 				}
-
-				// String description = (String)subCategory.getValue();
-				// logger.info(subCatId+" - "+description);
 			}
 
 		}
@@ -423,7 +414,7 @@ public class PrepareBalanceSheet {
 
 	}
 
-	public static void createSummarySheet(ArrayList al, String sheetName) throws Exception {
+	public static void createSummarySheet(ArrayList<String> al, String sheetName) throws Exception {
 
 		HSSFSheet sheet = reportWb.createSheet(sheetName);
 		HSSFRow headerRow = sheet.createRow((short) 0);
@@ -431,11 +422,7 @@ public class PrepareBalanceSheet {
 		headerRow.createCell((short) 1).setCellValue(new HSSFRichTextString("EXPENSE DETAILS"));
 		headerRow.createCell((short) 2).setCellValue(new HSSFRichTextString("EXPENSE AMOUNT"));
 		headerRow.createCell((short) 3).setCellValue(new HSSFRichTextString("EXPENSE CATEGORY AMOUNT"));
-		// headerRow.createCell((short) 4).setCellValue(new HSSFRichTextString("Total
-		// Expenses"));
-		int rowCount = 1;
-		String colValue;
-		String colType;
+		int rowCount = 2;
 		String rec;
 		for (int i = 0; i < al.size(); i++) {
 			headerRow = sheet.createRow((short) rowCount);
@@ -450,7 +437,7 @@ public class PrepareBalanceSheet {
 
 	}
 
-	public static void createInvoicesSheet(ArrayList al, String sheetName) throws Exception {
+	public static void createInvoicesSheet(ArrayList<String> al, String sheetName) throws Exception {
 
 		HSSFSheet sheet = reportWb.createSheet(sheetName);
 		HSSFRow headerRow = sheet.createRow((short) 0);
@@ -459,9 +446,7 @@ public class PrepareBalanceSheet {
 		headerRow.createCell((short) 2).setCellValue(new HSSFRichTextString("OUTGOING INVOICES"));
 		headerRow.createCell((short) 3).setCellValue(new HSSFRichTextString("OUTGOING AMOUNT"));
 
-		int rowCount = 1;
-		String colValue;
-		String colType;
+		int rowCount = 2;
 		String rec;
 		for (int i = 0; i < al.size(); i++) {
 			headerRow = sheet.createRow((short) rowCount);
@@ -476,16 +461,14 @@ public class PrepareBalanceSheet {
 
 	}
 
-	public static void createBalanceSheet(ArrayList al, String sheetName) throws Exception {
+	public static void createBalanceSheet(ArrayList<String> al, String sheetName) throws Exception {
 
 		HSSFSheet sheet = reportWb.createSheet(sheetName);
 		HSSFRow headerRow = sheet.createRow((short) 0);
 		headerRow.createCell((short) 0).setCellValue(new HSSFRichTextString("DESCRIPTION"));
 		headerRow.createCell((short) 1).setCellValue(new HSSFRichTextString("AMOUNT"));
 
-		int rowCount = 1;
-		String colValue;
-		String colType;
+		int rowCount = 2;
 		String rec;
 		for (int i = 0; i < al.size(); i++) {
 			headerRow = sheet.createRow((short) rowCount);
