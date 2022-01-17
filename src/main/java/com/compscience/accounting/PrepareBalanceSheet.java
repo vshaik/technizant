@@ -21,8 +21,8 @@ import org.slf4j.LoggerFactory;
 public class PrepareBalanceSheet {
 
 	public static final org.slf4j.Logger logger = LoggerFactory.getLogger(PrepareBalanceSheet.class);
-	static final String accountsFile = "C:/WORK/Techzant/2020/Technizant-2020.xlsx";
-	static final String finalReport = "C:/WORK/Techzant/2020/Technizant-2020-BalanceSheet.xls";
+	static final String accountsFile = "C:/WORK/Techzant/2021/Technizant-2021.xlsx";
+	static final String finalReport = "C:/WORK/Techzant/2021/Technizant-2021-BalanceSheet.xls";
 	static XSSFWorkbook wb;
 	static HSSFWorkbook reportWb;
 	static Map expensesCategoryMap = new HashMap();

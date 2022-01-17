@@ -16,7 +16,7 @@ import org.slf4j.LoggerFactory;
 public class AccountsValidator {
 
 	public static final org.slf4j.Logger logger = LoggerFactory.getLogger(AccountsValidator.class);
-	static final String ACCOUNTS_FILE = "C:/WORK/Techzant/2020/Technizant-2020.xlsx";
+	static final String ACCOUNTS_FILE = "C:/WORK/Techzant/2021/Technizant-2021.xlsx";
 
 	public static void main(String[] args) {
 
@@ -116,10 +116,11 @@ public class AccountsValidator {
 			double profit = investments + invoicesBalance + beginBal;
 			double calculatedEndingBalance = roundTwoDecimals(profit - totalExpenses);
 			double difference = endBal - calculatedEndingBalance;
-			if (difference >= 0.01) {
+			if (difference < 1.0) {
 				logger.info("************* Hurray. You are the accounting champion! *************");
 				logger.info("Calculated Ending Balance: "+calculatedEndingBalance);
-				logger.info("End Balance: "+endBal);				
+				logger.info("End Balance: "+endBal);
+				logger.info("Difference: " + difference);
 				logger.info("********************************************************************");
 			} else {
 				logger.info("Sorry. Something is wrong with your accounts :(");
