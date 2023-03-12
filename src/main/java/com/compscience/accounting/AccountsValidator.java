@@ -116,7 +116,7 @@ public class AccountsValidator {
 			double profit = investments + invoicesBalance + beginBal;
 			double calculatedEndingBalance = roundTwoDecimals(profit - totalExpenses);
 			double difference = endBal - calculatedEndingBalance;
-			if (difference < 1.0) {
+			if (difference < 1.0 && difference >= 0) {
 				logger.info("************* Hurray. You are the accounting champion! *************");
 				logger.info("Calculated Ending Balance: "+calculatedEndingBalance);
 				logger.info("End Balance: "+endBal);
