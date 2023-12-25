@@ -16,7 +16,7 @@ import org.slf4j.LoggerFactory;
 public class AccountsValidator {
 
 	public static final org.slf4j.Logger logger = LoggerFactory.getLogger(AccountsValidator.class);
-	static final String ACCOUNTS_FILE = "C:/WORK/Techzant/2022/business/Technizant-2022.xlsx";
+	static final String ACCOUNTS_FILE = "G:/Other computers/valis-pc/work/Techzant/2023/business/Technizant-2023.xlsx";
 
 	public static void main(String[] args) {
 
