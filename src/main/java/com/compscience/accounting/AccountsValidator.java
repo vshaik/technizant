@@ -94,26 +94,28 @@ public class AccountsValidator {
 
 			logger.info("Invoices Balance: " + invoicesBalance);
 
-			sheet = wb.getSheet("INVESTMENT_PROFIT");
-			itr = sheet.rowIterator();
-			double investments = 0;
-			while (itr.hasNext()) {
-				XSSFRow row = (XSSFRow) itr.next();
-				if (row.getRowNum() == 0) {
-					continue;
-				}
-				Iterator<Cell> cellItr = row.cellIterator();
-				while (cellItr.hasNext()) {
-					XSSFCell cell = (XSSFCell) cellItr.next();
-					if (cell.getColumnIndex() == 2) {
-						investments += cell.getNumericCellValue();
+			/*
+				sheet = wb.getSheet("INVESTMENT_PROFIT");
+				itr = sheet.rowIterator();
+				double investments = 0;
+				while (itr.hasNext()) {
+					XSSFRow row = (XSSFRow) itr.next();
+					if (row.getRowNum() == 0) {
+						continue;
+					}
+					Iterator<Cell> cellItr = row.cellIterator();
+					while (cellItr.hasNext()) {
+						XSSFCell cell = (XSSFCell) cellItr.next();
+						if (cell.getColumnIndex() == 2) {
+							investments += cell.getNumericCellValue();
+						}
 					}
 				}
-			}
+				logger.info("Investments: " + investments);
+			*/
 
-			logger.info("Investments: " + investments);
-
-			double profit = investments + invoicesBalance + beginBal;
+			//double profit = investments + invoicesBalance + beginBal;
+			double profit = invoicesBalance + beginBal;
 			double calculatedEndingBalance = roundTwoDecimals(profit - totalExpenses);
 			double difference = endBal - calculatedEndingBalance;
 			if (difference < 1.0 && difference >= 0) {
