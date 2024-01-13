@@ -21,8 +21,8 @@ import org.slf4j.LoggerFactory;
 public class PrepareBalanceSheet {
 
 	public static final org.slf4j.Logger logger = LoggerFactory.getLogger(PrepareBalanceSheet.class);
-	static final String accountsFile = "C:/WORK/Techzant/2022/business/Technizant-2022.xlsx";
-	static final String finalReport = "C:/WORK/Techzant/2022/business/Technizant-2022-BalanceSheet.xls";
+	static final String accountsFile = "G:/Other computers/valis-pc/work/Techzant/2023/business/Technizant-2023.xlsx";
+	static final String finalReport = "G:/Other computers/valis-pc/work/Techzant/2023/business/Technizant-2023-BalanceSheet.xls";
 	static XSSFWorkbook wb;
 	static HSSFWorkbook reportWb;
 	static Map expensesCategoryMap = new HashMap();
@@ -232,6 +232,8 @@ public class PrepareBalanceSheet {
 
 		}
 
+		
+		/*
 		sheet = wb.getSheet("INVESTMENT_PROFIT");
 		itr = sheet.rowIterator();
 
@@ -267,7 +269,8 @@ public class PrepareBalanceSheet {
 			}
 			resultList.add(investDescription + ":" + roundTwoDecimals(investment));
 		}
-
+		 
+		
 		resultList.add("");
 		resultList.add("");
 		resultList.add("Ending Balance:" + roundTwoDecimals(endingBalance));
@@ -277,9 +280,10 @@ public class PrepareBalanceSheet {
 		} else {
 			logger.info("*************** Just OK ***************");
 		}
+		*/
 
 		createBalanceSheet(resultList, "Balance Sheet");
-		logger.info("Ending Balance: " + endingBalance);
+		//logger.info("Ending Balance: " + endingBalance);
 		FileOutputStream out = new FileOutputStream(finalReport);
 		reportWb.write(out);
 		out.close();
