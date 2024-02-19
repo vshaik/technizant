@@ -16,6 +16,7 @@ import org.apache.poi.xssf.usermodel.XSSFCell;
 import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import org.apache.poi.ss.usermodel.Cell;
 import org.slf4j.LoggerFactory;
 
 public class PrepareBalanceSheet {
@@ -135,7 +136,7 @@ public class PrepareBalanceSheet {
 				continue;
 			}
 
-			Iterator cellItr = row.cellIterator();
+			Iterator<Cell> cellItr = row.cellIterator();
 			String projectId = null;
 			double incomingAmt = 0;
 			double outGoingAmt = 0;
@@ -394,7 +395,7 @@ public class PrepareBalanceSheet {
 				continue;
 			}
 
-			Iterator cellItr = row.cellIterator();
+			Iterator<Cell> cellItr = row.cellIterator();
 			String project = null;
 			String client = null;
 			String comp1099 = null;
